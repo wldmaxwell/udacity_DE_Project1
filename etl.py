@@ -6,6 +6,17 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    
+    """ 
+        Processes song JSON file to insert data into song and artist tables
+
+        Arguments:
+            * cur : creates connection to the Database
+            * filepath: path to json file to extract data to be inserting into song and artist tables
+        Returns:
+            * Song Data inserted into songs table
+            * Artist Data inserted into artists table
+        """
     # open song file
     df = pd.read_json(filepath, lines = True)
 
@@ -19,6 +30,17 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    
+    """ Processes log JSON file to insert data into users and time table
+
+        Arguments:
+            * cur : creates connection to the Database
+            * filepath: path to json file to extract data to be inserting into users andtime tables
+        Returns:
+            * User Data inserted into users table
+            * Time Data inserted into times table
+            * Songplay data inserted into songplay table
+        """
     # open log file
     df = pd.read_json(filepath, lines= True)
 
@@ -63,6 +85,17 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    
+    """ Connects to database and calls functions to insert all data from JSON files into Database
+
+        Arguments:
+            * cur : creates connection to the Database
+            * conn:
+            * filepath: Paths to log and song data data/song_data and data/log_data
+            * func : calls functions process_song_file and process_log_file to extract, transform and load data into appropiate tables
+        Returns:
+            * Sparkify tables with all data inserted into respected tables
+        """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -82,6 +115,14 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+    
+    """ Connects to database and calls process_data
+
+        Arguments:
+            
+        Returns:
+            * Sparkify tables with all data inserted into respected tables and then closes connection
+        """
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()
 
