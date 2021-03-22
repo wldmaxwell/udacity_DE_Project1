@@ -70,6 +70,8 @@ The Sparkify analytics database (SparkifyDB) is a Star Schema design. The star s
 
 **Entity Relationship Diagram (ERD)**
 
+![Sparkify ERD](Sparkify.png)
+
 
 #### **Fact Table**
 
